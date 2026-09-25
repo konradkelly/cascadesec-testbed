@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ledger
+  namespace: payments
+  labels:
+    app: ledger
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ledger
+  template:
+    metadata:
+      labels:
+        app: ledger
+    spec:
+      containers:
+        - name: ledger
+          image: registry.example.com/ledger:1.4.2
+          ports:
+            - containerPort: 8080
+          securityContext:
+            allowPrivilegeEscalation: true
+          resources:
+            limits:
+              cpu: "1"
+              memory: 512Mi
