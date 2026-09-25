@@ -1,0 +1,25 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Payments event queue and its dead-letter queue.
+
+Parameters:
+  DataKeyArn:
+    Type: String
+    Description: KMS key that encrypts production data (from the Terraform estate).
+
+Resources:
+  PaymentsEventsDlq:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: prod-payments-events-dlq
+      KmsMasterKeyId: !Ref DataKeyArn
+      MessageRetentionPeriod: 1209600
+
+  PaymentsEvents:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: prod-payments-events
+      KmsMasterKeyId: !Ref DataKeyArn
+      VisibilityTimeout: 60
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt PaymentsEventsDlq.Arn
+        maxReceiveCount: 5
