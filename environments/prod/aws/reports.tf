@@ -9,3 +9,8 @@ resource "aws_kms_alias" "reports" {
   name          = "alias/reports"
   target_key_id = aws_kms_key.reports.key_id
 }
+
+resource "aws_kms_alias" "reports_legacy" {
+  name          = "alias/reports-legacy"
+  target_key_id = aws_kms_key.reports.key_id
+}
