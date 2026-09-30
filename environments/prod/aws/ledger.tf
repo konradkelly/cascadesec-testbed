@@ -1,4 +1,5 @@
 # Ledger service: its own key, database and an admin bastion.
+# Owned by the payments team; see the ledger runbook.
 
 resource "aws_kms_key" "ledger" {
   description             = "Encrypts ledger data"
