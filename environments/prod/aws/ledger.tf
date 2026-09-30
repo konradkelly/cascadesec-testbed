@@ -3,6 +3,7 @@
 resource "aws_kms_key" "ledger" {
   description             = "Encrypts ledger data"
   deletion_window_in_days = 30
+  enable_key_rotation     = true
 
   policy = jsonencode({
     Version = "2012-10-17"
