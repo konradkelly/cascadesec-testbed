@@ -1,4 +1,5 @@
 # Reports: the ledger's monthly reports are stored under their own key.
+# Retained for seven years; see the records policy.
 
 resource "aws_kms_key" "reports" {
   description             = "Encrypts ledger monthly reports"
